@@ -1,0 +1,138 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+html {
+    height: 99vh;
+    width: 99vw;
+}
+
+body {
+    background-color: rgb(75, 143, 120);
+    color: rgb(35, 31, 32);
+}
+
+.buttons {
+    width: 16vw;
+    padding: 0 5vw;
+}
+
+.selection {
+    width: 10vw;
+    padding: 2vh 3vw;
+}
+
+.scoreIcon {
+    width: 5vw;
+    padding: 1vw;
+}
+
+.score {
+    padding: 1vw;
+}
+
+#outerContainer {
+    font-size: 6vh;
+    display: flex;
+    flex-direction: column;
+    height: 98vh;
+    width: 99vw;
+    align-items: center;
+    justify-content: center;
+}
+
+#selectionButtons {
+    display: flex;
+    flex-direction: row;
+    margin: 2vh;
+    height: 35vh;
+    width: 80vw;
+    justify-content: center;
+}
+
+#scoreCard {
+    display: flex;
+    flex-direction: row;
+    padding: 2vh;
+}
+
+.scores {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin: 0 10vw;
+    border: 1px solid rgb(51, 94, 80);
+    background-color: rgb(57, 110, 93);
+}
+
+
+#selections {
+    border: 1px solid rgb(51, 94, 80);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: rgb(57, 110, 93);
+
+}
+
+#banner {
+    display: flex;
+    flex-direction: row;
+    height: 6vw;
+    width: 90vw;
+    justify-content: center;
+}
+
+hr {
+    height: .4vh;
+    display: block;
+    width: 96vw;
+    border: 0;
+    border-radius: 30px;
+    background-color: rgb(51, 94, 80);
+}
+
+h1 {
+    padding: 1vh 5vw;
+    font-size: 4.6vw;
+}
