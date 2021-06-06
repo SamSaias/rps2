@@ -15,100 +15,135 @@
         </div>
         <hr>
         <div id="selectionButtons">
-            <img src="images/ppr-removebg-preview.png" alt="paper" class="buttons">
-            <img src="images/newRock-removebg-preview.png" alt="rock" class="buttons">
-            <img src="images/newScissors-removebg-preview.png" alt="scissors" class="buttons">
-
+            <input type="image" src="images/rock.png" alt="A rock" class="buttons" id="rock">
+            <input type="image" src="images/paper.png" alt="A few sheets of paper" class="buttons" id="paper">
+            <input type="image" src="images/scissors.png" alt="scissors" class="buttons" id="scissors">
         </div>
         <div id="scoreCard">
             <div class="scores">
-                <img src="images/humanBrain-removebg-preview.png" alt="brain" class="scoreIcon">
-                <p class="score">0</p>
+                <img src="images/user.png" alt="Silhouette of a human head and shoulders" class="playerIcons">
+                <p id="userScore" class="score">0</p>
             </div>
             
             <div id="selections">
-                <img src="images/ppr-removebg-preview.png" alt="alt goes here" class="selection">
+                <img src="images/user.png" alt="Silhouette of a human head and shoulders" id="userSelectionPlaceholder">
                 <p>VS</p>
-                <img src="images/newScissors-removebg-preview.png" alt="alt goes here" class="selection">
+                <img src="images/computer.png" alt="A Computer" id="compSelectionPlaceholder">
             </div>
             
             <div class="scores">
-                <img src="images/compBrain-removebg-preview.png" alt="computerized brain" class="scoreIcon">
-                <p class="score">0</p>
+                <img src="images/computer.png" alt="A Computer" class="playerIcons">
+                <p id="compScore" class="score">0</p>
             </div>
         </div>
-            <p>Computer Wins</p>
+            <p id="instructions">Please make your selection</p>
     </section>
-
-
-
-
 </main>
     
 
 
     <script>
-        let playerScore = 0;
         let computerScore = 0;
+        let playerScore = 0;
         
         function computerPlay() {
-            let choices = ["rock", "paper", "scissors"];
+            let choices = [0, 1, 2];
             return(choices[Math.floor(Math.random() * choices.length)]);
         }
         
-        function userPlay(playerInput) {
-            while(playerInput != "rock" && playerInput != "paper" && playerInput != "scissors") {
-                playerInput = prompt("Please type 'rock', 'paper', or 'scissors'").toLowerCase();
-            }
-            return playerInput;
-        } 
         
-        
-        function round(playerSelection, computerSelection) {            
-            console.log("Your Points: " + playerScore + ", Computer Points: " + computerScore);
-            computerSelection = computerPlay();
-            playerSelection = userPlay();
-
-            if (computerSelection === playerSelection) {
-                console.log("You chose " + playerSelection + ", the computer chose " + computerSelection + ", it's a tie!");
-            } else if (computerSelection === "rock") {
-                if (playerSelection === "paper") {
-                    playerScore ++;
-                    console.log("You chose " + playerSelection + ", the computer chose " + computerSelection + ", you win this round!");
-                } else {
-                    computerScore ++;
-                    console.log("You chose " + playerSelection + ", the computer chose " + computerSelection + ", you lose this round!");
-                }
-            } else if (computerSelection === "paper") {
-                if (playerSelection === "rock") {
-                    computerScore ++;
-                    console.log("You chose " + playerSelection + ", the computer chose " + computerSelection + ", you lose this round!")
-                } else {
-                    playerScore ++;
-                    console.log("You chose " + playerSelection + ", the computer chose " + computerSelection + ", you win this round!");
-                }
-            } else {
-                if (playerSelection === "rock") {
-                    playerScore ++;
-                    console.log("You chose " + playerSelection + ", the computer chose " + computerSelection + ", you win this round!");
-                } else {
-                    computerScore ++;
-                    console.log("You chose " + playerSelection + ", the computer chose " + computerSelection + ", you lose this round!");
-                }
-        }}
-
-        function game() {
-            for(let roundNumber = 0; roundNumber < 5; roundNumber ++) {
-                round();
-            }
-            if (computerScore === playerScore) {
-                console.log("Game over, it's a tie!")
-            } else if (computerScore > playerScore) {
-                console.log("Game over, the computer wins!")
-            } else {
-                console.log("Game over, you WON!")
-            }
+        function updateInstructions(i) {
+            let instructionOptions = [
+                "Please make your selection",
+                "The computer wins this round",
+                "You win this round",
+                "It's a tie"
+            ];
+            
+            let instructions = document.getElementById("instructions");
+            instructions.textContent = instructionOptions[i];
         }
+
+        function updateSelectionImage(playerSelection, computerSelection) {
+            let imageOptions = [
+                "images/rock.png", 
+                "images/paper.png", 
+                "images/scissors.png"];
+
+            let userSelection = document.getElementById("userSelectionPlaceholder");
+            userSelection.setAttribute("src", imageOptions[playerSelection])
+
+            let compSelection = document.getElementById("compSelectionPlaceholder");
+            compSelection.setAttribute("src", imageOptions[computerSelection])
+        }
+      
+           
+        function round(e, playerSelection, computerSelection) {
+            if (e.target.type != "image") {
+                return
+            } else if (e.target.id === "rock") {
+                playerSelection = 0;
+            } else if (e.target.id === "paper") {
+                playerSelection = 1;
+            } else {
+                playerSelection = 2;
+            }
+            computerSelection = computerPlay();
+            
+            updateSelectionImage(playerSelection, computerSelection);
+        
+            if (computerSelection === playerSelection) {
+                updateInstructions(3);
+                setTimeout(updateInstructions, 1000, 0)
+            } else if (computerSelection === 0) {
+                if (playerSelection === 1) {
+                    playerScore ++;
+                    updateInstructions(2);
+                    setTimeout(updateInstructions, 1000, 0)
+                } else if (playerSelection === 2) {
+                    computerScore ++;
+                    updateInstructions(1);
+                    setTimeout(updateInstructions, 1000, 0)
+
+                }
+            } else if (computerSelection === 1) {
+                if (playerSelection === 0) {
+                    computerScore ++;
+                    updateInstructions(1);
+                    setTimeout(updateInstructions, 1000, 0)
+
+                } else if (playerSelection === 2){
+                    playerScore ++;
+                    updateInstructions(2);
+                    setTimeout(updateInstructions, 1000, 0)
+
+                }
+            } else if (computerSelection === 2){
+                if (playerSelection === 0) {
+                    playerScore ++;
+                    updateInstructions(2);
+                    setTimeout(updateInstructions, 1000, 0)
+
+                } else if (playerSelection === 1){
+                    computerScore ++;
+                    updateInstructions(1);
+                    setTimeout(updateInstructions, 1000, 0)
+
+                }
+            }    
+        let userScore = document.getElementById("userScore");
+        userScore.textContent = playerScore;
+
+        let compScore = document.getElementById("compScore");
+        compScore.textContent = computerScore;
+
+    }
+
+        
+        window.addEventListener("click", round);
+
+        
+
     </script>
 </body>
 </html>
